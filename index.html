@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pascal's Mysterious Hexagon Theorem</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='22' fill='%23c96544'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,8 +18,10 @@
       --panel: rgba(255, 255, 255, 0.7);
       --curve: #b6a48f;
       --hex: #1f4c48;
-      --point: #c96544;
-      --guide: rgba(112, 128, 170, 0.26);
+      --point: #c94b4b;
+      --guide-one: rgba(112, 128, 170, 0.34);
+      --guide-two: rgba(138, 120, 164, 0.34);
+      --guide-three: rgba(128, 156, 118, 0.34);
       --pascal: #c96544;
       --shadow: 0 22px 70px rgba(42, 54, 96, 0.12);
     }
@@ -99,8 +102,59 @@
 
     .pill-lang {
       gap: 8px;
-      min-width: 76px;
-      padding: 0 18px;
+      min-width: 92px;
+      height: 56px;
+      padding: 0 16px 0 12px;
+      justify-content: flex-start;
+      letter-spacing: -0.04em;
+      border-color: rgba(19, 27, 49, 0.1);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 8px 22px rgba(42, 54, 96, 0.06);
+    }
+
+    .pill-lang.active {
+      border-color: rgba(19, 27, 49, 0.22);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 10px 24px rgba(42, 54, 96, 0.08);
+    }
+
+    .pill-lang-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(19, 27, 49, 0.05);
+      color: currentColor;
+      flex: 0 0 auto;
+      box-shadow: inset 0 0 0 1px rgba(19, 27, 49, 0.04);
+    }
+
+    .pill-lang.active .pill-lang-badge {
+      background: rgba(19, 27, 49, 0.07);
+      box-shadow: inset 0 0 0 1px rgba(19, 27, 49, 0.06);
+    }
+
+    .pill-lang-text {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      line-height: 1;
+    }
+
+    .pill-lang-code {
+      font-size: 0.96rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .pill-lang-label {
+      display: none;
+    }
+
+    .pill-lang.active .pill-lang-label {
+      color: rgba(19, 27, 49, 0.78);
     }
 
     .pill-icon {
@@ -109,6 +163,27 @@
       display: inline-block;
       color: currentColor;
       flex: 0 0 auto;
+    }
+
+    #home-button .pill-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    #home-button {
+      width: 56px;
+      min-width: 56px;
+      height: 56px;
+      padding: 0;
+    }
+
+    .lang-copy {
+      transition: opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity;
+    }
+
+    .app.language-transitioning .lang-copy {
+      opacity: 0.08;
     }
 
     .hero {
@@ -138,6 +213,7 @@
 
     .hero-copy {
       min-width: 0;
+      transform: translateX(24px);
     }
 
     .eyebrow {
@@ -221,17 +297,17 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      margin-left: -28px;
+      margin-left: -132px;
     }
 
     .hero-image {
-      width: min(118%, 460px);
+      width: min(140%, 620px);
       max-height: 70vh;
       object-fit: contain;
       filter: drop-shadow(0 20px 42px rgba(42, 54, 96, 0.14));
       user-select: none;
       pointer-events: none;
-      transform: translateX(-18px);
+      transform: translateX(-92px);
     }
 
     .stage {
@@ -264,7 +340,7 @@
     .caption {
       position: absolute;
       left: 50%;
-      bottom: 30px;
+      bottom: 52px;
       transform: translateX(-50%);
       z-index: 25;
       width: min(900px, calc(100vw - 48px));
@@ -336,7 +412,7 @@
 
     .side-legend {
       position: absolute;
-      left: 18px;
+      left: 34px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 25;
@@ -379,28 +455,51 @@
     }
 
     .nav {
-      min-width: 64px;
-      height: 64px;
+      width: 52px;
+      height: 52px;
+      padding: 0;
+      border-radius: 18px;
       border: 1px solid rgba(19, 27, 49, 0.12);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.88);
-      color: var(--ink);
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--muted);
       font: inherit;
-      font-size: 1rem;
+      font-size: 0.96rem;
       font-weight: 700;
       box-shadow: 0 10px 26px rgba(42, 54, 96, 0.08);
       cursor: pointer;
-      transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, opacity 180ms ease, color 180ms ease;
     }
 
     .nav:hover:not(:disabled) {
       transform: translateY(-1px);
       box-shadow: 0 14px 30px rgba(42, 54, 96, 0.1);
+      border-color: rgba(19, 27, 49, 0.2);
+      color: var(--ink);
     }
 
     .nav:disabled {
       opacity: 0.45;
       cursor: default;
+    }
+
+    .nav .action-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .randomize-button {
+      height: 52px;
+      padding: 0 18px;
+      border-radius: 18px;
+      font-size: 0.92rem;
+      gap: 8px;
+    }
+
+    .randomize-button.hidden {
+      display: none;
     }
 
     .outro {
@@ -539,7 +638,24 @@
       }
 
       .pill-lang {
-        min-width: 68px;
+        min-width: 84px;
+        height: 50px;
+        padding: 0 14px 0 10px;
+      }
+
+      #home-button {
+        width: 50px;
+        min-width: 50px;
+        height: 50px;
+      }
+
+      .pill-lang-badge {
+        width: 24px;
+        height: 24px;
+      }
+
+      .pill-lang-code {
+        font-size: 0.88rem;
       }
 
       .hero {
@@ -551,12 +667,17 @@
         text-align: left;
       }
 
+      .hero-copy {
+        transform: translateX(14px);
+      }
+
       .hero-figure {
-        margin-left: 0;
+        margin-left: -40px;
       }
 
       .hero-image {
-        width: min(100%, 420px);
+        width: min(114%, 500px);
+        transform: translateX(-32px);
       }
 
       .title {
@@ -583,8 +704,25 @@
         bottom: 154px;
       }
 
+      .caption {
+        bottom: 44px;
+      }
+
+      .nav {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+      }
+
+      .randomize-button {
+        height: 48px;
+        padding: 0 14px;
+        border-radius: 16px;
+        font-size: 0.86rem;
+      }
+
       .side-legend {
-        left: 12px;
+        left: 22px;
         top: 50%;
         transform: translateY(-50%);
         width: min(220px, calc(100vw - 24px));
@@ -618,14 +756,22 @@
         </svg>
       </button>
       <button class="pill pill-lang active" id="lang-en" type="button" aria-label="Switch to English">
-        <svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2m6.93 9h-3.08a15.7 15.7 0 0 0-1.38-5A8.04 8.04 0 0 1 18.93 11M12 4.07c.96 1.14 1.8 3.08 2.17 5.43H9.83C10.2 7.15 11.04 5.21 12 4.07M4.07 13h3.08a15.7 15.7 0 0 0 1.38 5A8.04 8.04 0 0 1 4.07 13m3.08-2H4.07a8.04 8.04 0 0 1 4.46-5a15.7 15.7 0 0 0-1.38 5M12 19.93c-.96-1.14-1.8-3.08-2.17-5.43h4.34c-.37 2.35-1.21 4.29-2.17 5.43M14.5 13h-5a13.95 13.95 0 0 1 0-2h5a13.95 13.95 0 0 1 0 2m-.03 5a15.7 15.7 0 0 0 1.38-5h3.08A8.04 8.04 0 0 1 14.47 18"/>
-        </svg>
-        <span>EN</span>
+        <span class="pill-lang-badge" aria-hidden="true">
+          <svg class="pill-icon" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2m6.93 9h-3.08a15.7 15.7 0 0 0-1.38-5A8.04 8.04 0 0 1 18.93 11M12 4.07c.96 1.14 1.8 3.08 2.17 5.43H9.83C10.2 7.15 11.04 5.21 12 4.07M4.07 13h3.08a15.7 15.7 0 0 0 1.38 5A8.04 8.04 0 0 1 4.07 13m3.08-2H4.07a8.04 8.04 0 0 1 4.46-5a15.7 15.7 0 0 0-1.38 5M12 19.93c-.96-1.14-1.8-3.08-2.17-5.43h4.34c-.37 2.35-1.21 4.29-2.17 5.43M14.5 13h-5a13.95 13.95 0 0 1 0-2h5a13.95 13.95 0 0 1 0 2m-.03 5a15.7 15.7 0 0 0 1.38-5h3.08A8.04 8.04 0 0 1 14.47 18"/>
+          </svg>
+        </span>
+        <span class="pill-lang-text">
+          <span class="pill-lang-code">EN</span>
+        </span>
       </button>
       <button class="pill pill-lang" id="lang-ko" type="button" aria-label="한국어로 전환">
-        <span class="pill-icon" style="display:grid;place-items:center;font-weight:700;font-size:0.98rem;line-height:1;">가</span>
-        <span>KR</span>
+        <span class="pill-lang-badge" aria-hidden="true">
+          <span class="pill-icon" style="display:grid;place-items:center;font-weight:800;font-size:1rem;line-height:1;">가</span>
+        </span>
+        <span class="pill-lang-text">
+          <span class="pill-lang-code">KR</span>
+        </span>
       </button>
     </div>
 
@@ -667,6 +813,12 @@
         <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path fill="currentColor" d="M14.7 6.3a1 1 0 0 1 0 1.4L10.41 12l4.29 4.3a1 1 0 0 1-1.41 1.4l-5-5a1 1 0 0 1 0-1.4l5-5a1 1 0 0 1 1.41 0"/>
         </svg>
+      </button>
+      <button class="action randomize-button hidden" id="randomize-button" type="button">
+        <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4m1.75 4.75a1.25 1.25 0 1 0 0 2.5a1.25 1.25 0 0 0 0-2.5m6.5 0a1.25 1.25 0 1 0 0 2.5a1.25 1.25 0 0 0 0-2.5m-6.5 6a1.25 1.25 0 1 0 0 2.5a1.25 1.25 0 0 0 0-2.5m3.25-3a1.25 1.25 0 1 0 0 2.5a1.25 1.25 0 0 0 0-2.5m3.25 3a1.25 1.25 0 1 0 0 2.5a1.25 1.25 0 0 0 0-2.5"/>
+        </svg>
+        <span id="randomize-label"></span>
       </button>
       <button class="nav" id="next-button" type="button" aria-label="Next step">
         <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -728,20 +880,21 @@
         heroSubtitle: "A slow, step-by-step visual proof. Follow the points, build the hexagon, and watch the hidden line appear.",
         start: "Start Tutorial",
         switchLabel: "한국어 보기",
-        outroEyebrow: "Outro",
+        outroEyebrow: "Sources",
         outroTitle: "Pascal's line revealed.",
-        outroSubtitle: "The construction closes on a single straight line. Here are a few references you could attach later with real sources.",
+        outroSubtitle: "The construction closes on a single straight line. Below are source slots you can replace later with real references and citations.",
         restart: "Replay Tutorial",
         home: "Back Home",
+        randomize: "Randomize Points",
         legendTitle: "What is appearing",
         legendCurve: "Conic",
         legendHex: "Inscribed hexagon",
         legendGuide: "Extended opposite sides",
         legendPascal: "Pascal line",
         sources: [
-          { label: "Projective Geometry Notes", url: "https://example.com/projective-geometry" },
-          { label: "Pascal Hexagon Article", url: "https://example.com/pascal-hexagon" },
-          { label: "Conics and Incidence", url: "https://example.com/conics-incidence" }
+          { label: "YouTube Shorts: Pascal's Mysterious Hexagon Theorem", url: "https://www.youtube.com/shorts/cVSGkp-MLIw" },
+          { label: "Math Travel Blog: Pascal's Hexagon Theorem Proof", url: "https://mathtravel.tistory.com/entry/%ED%8C%8C%EC%8A%A4%EC%B9%BC%EC%9D%98-%EC%9C%A1%EA%B0%81%ED%98%95-%EC%A0%95%EB%A6%AC-%EC%A6%9D%EB%AA%85%EB%B0%A9%EB%B2%95" },
+          { label: "YouTube: Pascal's Theorem (Hexagrammum Mysticum)", url: "https://www.youtube.com/watch?v=ALqPQSrSVks" }
         ],
         steps: [
           {
@@ -787,66 +940,67 @@
         ]
       },
       ko: {
-        heroEyebrow: "인터랙티브 기하 스토리",
-        heroTitle: "Pascal's Mysterious Hexagon Theorem",
-        heroSubtitle: "천천히 따라가는 시각적 증명입니다. 점을 찍고, 육각형을 만들고, 마지막 숨은 직선이 드러나는 순간까지 보세요.",
+        heroEyebrow: "인터랙티브 기하 이야기",
+        heroTitle: "파스칼의 신비로운 육각형 정리",
+        heroSubtitle: "점을 하나씩 따라가며 육각형을 만들고, 마지막에 숨어 있던 직선이 드러나는 과정을 천천히 살펴보세요.",
         start: "튜토리얼 시작",
         switchLabel: "View in English",
-        outroEyebrow: "Outro",
-        outroTitle: "Pascal line 이 드러납니다.",
-        outroSubtitle: "구성이 마지막에 하나의 직선으로 닫힙니다. 지금은 깔끔한 레이아웃 확인용으로 임시 링크를 넣어두었습니다.",
+        outroEyebrow: "참고 자료",
+        outroTitle: "파스칼의 직선이 선명하게 드러납니다.",
+        outroSubtitle: "마지막에는 세 교점이 하나의 직선 위에 놓입니다. 아래 목록은 나중에 실제 출처와 참고 문헌으로 교체할 수 있도록 마련한 참고 자료 영역입니다.",
         restart: "튜토리얼 다시 보기",
         home: "홈으로 돌아가기",
-        legendTitle: "지금 나타나는 것",
+        randomize: "점 배치 바꾸기",
+        legendTitle: "현재 표시되는 요소",
         legendCurve: "원뿔곡선",
         legendHex: "내접 육각형",
-        legendGuide: "연장된 마주 보는 변",
-        legendPascal: "Pascal line",
+        legendGuide: "연장한 마주보는 변",
+        legendPascal: "파스칼의 직선",
         sources: [
-          { label: "프로젝티브 기하 노트", url: "https://example.com/projective-geometry" },
-          { label: "파스칼 육각형 아티클", url: "https://example.com/pascal-hexagon" },
-          { label: "원뿔곡선과 정렬", url: "https://example.com/conics-incidence" }
+          { label: "유튜브 쇼츠: 파스칼의 신비로운 육각형 정리", url: "https://www.youtube.com/shorts/cVSGkp-MLIw" },
+          { label: "Math Travel 블로그: 파스칼의 육각형 정리 증명 방법", url: "https://mathtravel.tistory.com/entry/%ED%8C%8C%EC%8A%A4%EC%B9%BC%EC%9D%98-%EC%9C%A1%EA%B0%81%ED%98%95-%EC%A0%95%EB%A6%AC-%EC%A6%9D%EB%AA%85%EB%B0%A9%EB%B2%95" },
+          { label: "유튜브: Pascal's Theorem (Hexagrammum Mysticum)", url: "https://www.youtube.com/watch?v=ALqPQSrSVks" }
         ],
         steps: [
           {
             step: "Step 1",
-            title: "우선 A와 B를 찍어봅시다",
-            text: "아직은 특별한 일이 없어 보여도, 모든 구조는 여기서 시작됩니다."
+            title: "먼저 A와 B를 놓습니다",
+            text: "곡선 위에 두 점이 나타납니다. 아직은 단순해 보이지만, 모든 구성은 여기서 시작됩니다."
           },
           {
             step: "Step 2",
-            title: "이제 C와 D를 이어서 잡습니다",
-            text: "같은 곡선 위에서 점을 더 고르면서 육각형의 리듬이 만들어집니다."
+            title: "이제 C와 D를 더합니다",
+            text: "같은 원뿔곡선 위에서 점을 계속 잡아 가며 육각형의 형태를 준비합니다."
           },
           {
             step: "Step 3",
             title: "마지막으로 E와 F를 놓습니다",
-            text: "이제 A, B, C, D, E, F 여섯 점이 모두 한 원뿔곡선 위에 있습니다."
+            text: "이제 A, B, C, D, E, F 여섯 점이 모두 하나의 원뿔곡선 위에 놓였습니다."
           },
           {
             step: "Step 4",
-            title: "점들을 순서대로 연결합니다",
-            text: "여섯 점을 차례대로 이으면 파스칼의 육각형이 완성됩니다."
+            title: "점들을 차례대로 잇습니다",
+            text: "여섯 점을 순서대로 연결하면 곡선에 내접하는 육각형이 완성됩니다."
           },
           {
             step: "Step 5",
-            title: "첫 번째 마주 보는 변을 연장합니다",
-            text: "AB와 DE를 길게 뻗어 보면 바깥에서 첫 번째 교점이 생깁니다."
+            title: "첫 번째 마주보는 변을 연장합니다",
+            text: "AB와 DE를 연장하면 곡선 바깥에서 첫 번째 교점이 생깁니다."
           },
           {
             step: "Step 6",
-            title: "두 번째 마주 보는 변도 연장합니다",
-            text: "이번에는 BC와 EF를 연장해서 두 번째 교점을 얻습니다."
+            title: "두 번째 마주보는 변도 연장합니다",
+            text: "이번에는 BC와 EF를 연장해 두 번째 바깥쪽 교점을 만듭니다."
           },
           {
             step: "Step 7",
-            title: "마지막 쌍도 연장합니다",
-            text: "CD와 FA를 연장하면 세 번째 교점이 생기고 패턴이 완성됩니다."
+            title: "마지막 마주보는 변도 연장합니다",
+            text: "CD와 FA를 연장하면 세 번째 교점이 생기고, 전체 구성이 완성됩니다."
           },
           {
             step: "Step 8",
-            title: "세 교점을 한 번에 보세요",
-            text: "세 점은 흩어지지 않고 정확히 하나의 직선 위에 놓입니다."
+            title: "세 교점을 함께 보세요",
+            text: "세 교점은 흩어지지 않고 정확히 하나의 직선 위에 놓입니다. 이것이 파스칼의 직선입니다."
           }
         ]
       }
@@ -854,7 +1008,7 @@
 
     const cameraStates = [
       { scale: 0.92, x: 0, y: 0, visible: false },
-      { scale: 1.12, x: -12, y: -118, visible: true },
+      { scale: 1.14, x: -10, y: -102, visible: true },
       { scale: 1.14, x: -10, y: -102, visible: true },
       { scale: 1.08, x: -4, y: -88, visible: true },
       { scale: 1.02, x: -6, y: -74, visible: true },
@@ -874,6 +1028,7 @@
     const captionText = document.getElementById("caption-text");
     const prevButton = document.getElementById("prev-button");
     const nextButton = document.getElementById("next-button");
+    const randomizeButton = document.getElementById("randomize-button");
     const startButton = document.getElementById("start-button");
     const heroLanguage = document.getElementById("hero-language");
     const langEn = document.getElementById("lang-en");
@@ -899,25 +1054,57 @@
     const restartLabel = document.getElementById("restart-label");
     const outroHomeButton = document.getElementById("outro-home-button");
     const outroHomeLabel = document.getElementById("outro-home-label");
+    const randomizeLabel = document.getElementById("randomize-label");
+    const translatableNodes = [
+      ...document.querySelectorAll("[data-i18n]"),
+      captionStep,
+      captionTitle,
+      captionText,
+      legendTitle,
+      legendCurve,
+      legendHex,
+      legendGuide,
+      legendPascal,
+      outroEyebrow,
+      outroTitle,
+      outroSubtitle,
+      restartLabel,
+      outroHomeLabel,
+      randomizeLabel,
+      sourcesList
+    ];
 
     const center = { x: 500, y: 500 };
     const ellipse = { rx: 292, ry: 208 };
-    const angles = [236, 304, 348, 0, 20, 40];
+    const defaultAngles = [236, 304, 348, 0, 20, 40];
+    const randomRanges = [
+      [216, 248],
+      [286, 318],
+      [334, 350],
+      [354, 366],
+      [372, 392],
+      [396, 418]
+    ];
     const labels = ["A", "B", "C", "D", "E", "F"];
-    const points = angles.map((angle) => pointOnEllipse(angle));
+    const guideColors = [
+      "var(--guide-one)",
+      "var(--guide-two)",
+      "var(--guide-three)"
+    ];
     const oppositePairs = [
       [0, 1, 3, 4],
       [1, 2, 4, 5],
       [2, 3, 5, 0]
     ];
-    const intersections = oppositePairs.map(([a1, a2, b1, b2]) =>
-      lineIntersection(points[a1], points[a2], points[b1], points[b2])
-    );
 
     const state = {
       language: "en",
       step: 0,
-      started: false
+      started: false,
+      angles: [...defaultAngles],
+      isRandomizing: false,
+      snapHiddenLines: false,
+      languageAnimationTimer: null
     };
 
     const nodes = {
@@ -932,6 +1119,7 @@
     };
 
     buildScene();
+    translatableNodes.forEach((node) => node.classList.add("lang-copy"));
     applyLanguage();
     render();
 
@@ -957,6 +1145,7 @@
 
     prevButton.addEventListener("click", previousStep);
     nextButton.addEventListener("click", nextStep);
+    randomizeButton.addEventListener("click", randomizePoints);
 
     window.addEventListener("keydown", (event) => {
       if (event.key === " " || event.key === "ArrowRight") {
@@ -977,9 +1166,27 @@
     });
 
     function setLanguage(language) {
-      state.language = language;
-      applyLanguage();
-      render();
+      if (language === state.language) return;
+      if (state.languageAnimationTimer) {
+        clearTimeout(state.languageAnimationTimer);
+        state.languageAnimationTimer = null;
+      }
+
+      document.querySelector(".app").classList.add("language-transitioning");
+
+      state.languageAnimationTimer = window.setTimeout(() => {
+        state.language = language;
+        applyLanguage();
+        render();
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            document.querySelector(".app").classList.remove("language-transitioning");
+          });
+        });
+
+        state.languageAnimationTimer = null;
+      }, 135);
     }
 
     function nextStep() {
@@ -1014,6 +1221,7 @@
       outroSubtitle.textContent = copy[state.language].outroSubtitle;
       restartLabel.textContent = copy[state.language].restart;
       outroHomeLabel.textContent = copy[state.language].home;
+      randomizeLabel.textContent = copy[state.language].randomize;
       legendTitle.textContent = copy[state.language].legendTitle;
       legendCurve.textContent = copy[state.language].legendCurve;
       legendHex.textContent = copy[state.language].legendHex;
@@ -1052,10 +1260,49 @@
 
       prevButton.disabled = !inTutorial;
       nextButton.disabled = !inTutorial || state.step === tutorialCount;
+      randomizeButton.disabled = state.isRandomizing;
+      randomizeButton.classList.toggle("hidden", !(inTutorial && state.step === 2));
 
       updateCamera();
       updateGeometry();
       updateLegend(inTutorial ? state.step : -1);
+    }
+
+    function randomizePoints() {
+      if (!(state.started && state.step === 2) || state.isRandomizing) return;
+      const nextAngles = randomRanges.map(([min, max]) => normalizeAngle(min + Math.random() * (max - min)));
+      state.isRandomizing = true;
+      state.snapHiddenLines = true;
+      render();
+      animateAngles(state.angles, nextAngles, 520);
+    }
+
+    function animateAngles(fromAngles, toAngles, duration) {
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        state.angles = fromAngles.map((angle, index) =>
+          normalizeAngle(angle + shortestAngleDelta(angle, toAngles[index]) * eased)
+        );
+
+        updateScenePositions();
+        updateGeometry();
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+          return;
+        }
+
+        state.angles = [...toAngles];
+        state.isRandomizing = false;
+        updateScenePositions();
+        render();
+      }
+
+      requestAnimationFrame(tick);
     }
 
     function updateCamera() {
@@ -1066,9 +1313,11 @@
     }
 
     function updateGeometry() {
-      const revealLevel = state.started ? Math.min(state.step + 1, 8) : 0;
+      const revealLevel = getRevealLevel();
+      const instantStroke = state.snapHiddenLines;
+      state.snapHiddenLines = false;
 
-      setStrokeProgress(nodes.curve, revealLevel >= 1 ? 1 : 0);
+      setStrokeProgress(nodes.curve, revealLevel >= 1 ? 1 : 0, instantStroke);
 
       nodes.pointDots.forEach((node, index) => {
         node.style.opacity = revealLevel >= pointStep(index) ? "1" : "0";
@@ -1080,11 +1329,11 @@
         node.style.transform = revealLevel >= pointStep(index) ? "translateY(0)" : "translateY(10px)";
       });
 
-      setStrokeProgress(nodes.polygon, revealLevel >= 4 ? 1 : 0);
+      setStrokeProgress(nodes.polygon, revealLevel >= 4 ? 1 : 0, instantStroke);
 
       nodes.guidePairs.forEach((pair, index) => {
         const visible = revealLevel >= 5 + index;
-        pair.forEach((line) => setStrokeProgress(line, visible ? 1 : 0));
+        pair.forEach((line) => setStrokeProgress(line, visible ? 1 : 0, instantStroke));
       });
 
       nodes.intersectionGlows.forEach((node, index) => {
@@ -1097,7 +1346,7 @@
         node.style.transform = revealLevel >= 5 + index ? "scale(1)" : "scale(0.4)";
       });
 
-      setStrokeProgress(nodes.pascalLine, revealLevel >= 8 ? 1 : 0);
+      setStrokeProgress(nodes.pascalLine, revealLevel >= 8 ? 1 : 0, instantStroke);
     }
 
     function updateLegend(step) {
@@ -1115,6 +1364,14 @@
 
     function buildScene() {
       svg.innerHTML = "";
+      const points = getPoints();
+      const intersections = getIntersections(points);
+
+      nodes.guidePairs = [];
+      nodes.pointDots = [];
+      nodes.pointLabels = [];
+      nodes.intersectionGlows = [];
+      nodes.intersectionPoints = [];
 
       add("defs", {}, [
         createFilter(),
@@ -1154,7 +1411,7 @@
         });
         dot.style.opacity = "0";
         dot.style.transformOrigin = "center";
-        dot.style.transition = "opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1)";
+        dot.style.transition = "opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1), cx 520ms cubic-bezier(0.22, 1, 0.36, 1), cy 520ms cubic-bezier(0.22, 1, 0.36, 1)";
         nodes.pointDots.push(dot);
 
         const offset = labelOffset(point);
@@ -1168,20 +1425,20 @@
           "text-anchor": "middle"
         }, labels[index]);
         label.style.opacity = "0";
-        label.style.transition = "opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1)";
+        label.style.transition = "opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1), x 520ms cubic-bezier(0.22, 1, 0.36, 1), y 520ms cubic-bezier(0.22, 1, 0.36, 1)";
         nodes.pointLabels.push(label);
       });
 
       oppositePairs.forEach(([a1, a2, b1, b2], index) => {
-        const first = extendSegment(points[a1], points[a2], 180);
-        const second = extendSegment(points[b1], points[b2], 180);
+        const first = extendSegmentToPoint(points[a1], points[a2], intersections[index], 64);
+        const second = extendSegmentToPoint(points[b1], points[b2], intersections[index], 64);
 
         const line1 = add("line", {
           x1: first.a.x,
           y1: first.a.y,
           x2: first.b.x,
           y2: first.b.y,
-          stroke: "var(--guide)",
+          stroke: guideColors[index],
           "stroke-width": 2.15,
           "stroke-linecap": "round"
         });
@@ -1190,7 +1447,7 @@
           y1: second.a.y,
           x2: second.b.x,
           y2: second.b.y,
-          stroke: "var(--guide)",
+          stroke: guideColors[index],
           "stroke-width": 2.15,
           "stroke-linecap": "round"
         });
@@ -1205,7 +1462,7 @@
         });
         glow.style.opacity = "0";
         glow.style.transformOrigin = "center";
-        glow.style.transition = "opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1)";
+        glow.style.transition = "opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1), cx 520ms cubic-bezier(0.22, 1, 0.36, 1), cy 520ms cubic-bezier(0.22, 1, 0.36, 1)";
         nodes.intersectionGlows.push(glow);
 
         const intersectionPoint = add("circle", {
@@ -1217,7 +1474,7 @@
         });
         intersectionPoint.style.opacity = "0";
         intersectionPoint.style.transformOrigin = "center";
-        intersectionPoint.style.transition = "opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1)";
+        intersectionPoint.style.transition = "opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1), cx 520ms cubic-bezier(0.22, 1, 0.36, 1), cy 520ms cubic-bezier(0.22, 1, 0.36, 1)";
         nodes.intersectionPoints.push(intersectionPoint);
       });
 
@@ -1240,14 +1497,25 @@
       const length = node.getTotalLength();
       node.dataset.length = String(length);
       node.style.strokeDasharray = `${length}`;
-      node.style.transition = "opacity 420ms ease, stroke-dashoffset 820ms cubic-bezier(0.22, 1, 0.36, 1)";
+      node.style.transition = "opacity 420ms ease, stroke-dashoffset 820ms cubic-bezier(0.22, 1, 0.36, 1), x1 520ms cubic-bezier(0.22, 1, 0.36, 1), y1 520ms cubic-bezier(0.22, 1, 0.36, 1), x2 520ms cubic-bezier(0.22, 1, 0.36, 1), y2 520ms cubic-bezier(0.22, 1, 0.36, 1), points 520ms cubic-bezier(0.22, 1, 0.36, 1)";
       setStrokeProgress(node, 0);
     }
 
-    function setStrokeProgress(node, progress) {
+    function setStrokeProgress(node, progress, instant = false) {
       const length = Number(node.dataset.length || 0);
+      const previousTransition = node.style.transition;
+
+      if (instant) {
+        node.style.transition = "none";
+      }
+
       node.style.strokeDashoffset = `${length * (1 - progress)}`;
       node.style.opacity = progress > 0 ? "1" : "0";
+
+      if (instant) {
+        void node.getBoundingClientRect();
+        node.style.transition = previousTransition;
+      }
     }
 
     function pointOnEllipse(angleDeg) {
@@ -1256,6 +1524,28 @@
         x: center.x + ellipse.rx * Math.cos(angle),
         y: center.y + ellipse.ry * Math.sin(angle)
       };
+    }
+
+    function getPoints() {
+      return state.angles.map((angle) => pointOnEllipse(angle));
+    }
+
+    function getIntersections(points) {
+      return oppositePairs.map(([a1, a2, b1, b2]) =>
+        lineIntersection(points[a1], points[a2], points[b1], points[b2])
+      );
+    }
+
+    function getRevealLevel() {
+      return state.started ? Math.min(state.step + 1, 8) : 0;
+    }
+
+    function normalizeAngle(angle) {
+      return ((angle % 360) + 360) % 360;
+    }
+
+    function shortestAngleDelta(from, to) {
+      return ((to - from + 540) % 360) - 180;
     }
 
     function labelOffset(point) {
@@ -1288,6 +1578,81 @@
         a: { x: a.x - ux * amount, y: a.y - uy * amount },
         b: { x: b.x + ux * amount, y: b.y + uy * amount }
       };
+    }
+
+    function extendSegmentToPoint(a, b, target, margin) {
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const length = Math.hypot(dx, dy);
+      const ux = dx / length;
+      const uy = dy / length;
+      const projection = ((target.x - a.x) * ux) + ((target.y - a.y) * uy);
+      const start = Math.min(0, projection) - margin;
+      const end = Math.max(length, projection) + margin;
+
+      return {
+        a: {
+          x: a.x + ux * start,
+          y: a.y + uy * start
+        },
+        b: {
+          x: a.x + ux * end,
+          y: a.y + uy * end
+        }
+      };
+    }
+
+    function updateScenePositions() {
+      const points = getPoints();
+      const intersections = getIntersections(points);
+
+      nodes.polygon.setAttribute("points", points.map(toPair).join(" "));
+
+      points.forEach((point, index) => {
+        nodes.pointDots[index].setAttribute("cx", point.x);
+        nodes.pointDots[index].setAttribute("cy", point.y);
+
+        const offset = labelOffset(point);
+        nodes.pointLabels[index].setAttribute("x", point.x + offset.x);
+        nodes.pointLabels[index].setAttribute("y", point.y + offset.y);
+      });
+
+      oppositePairs.forEach(([a1, a2, b1, b2], index) => {
+        const first = extendSegmentToPoint(points[a1], points[a2], intersections[index], 64);
+        const second = extendSegmentToPoint(points[b1], points[b2], intersections[index], 64);
+        const [line1, line2] = nodes.guidePairs[index];
+
+        setLinePosition(line1, first);
+        setLinePosition(line2, second);
+
+        nodes.intersectionGlows[index].setAttribute("cx", intersections[index].x);
+        nodes.intersectionGlows[index].setAttribute("cy", intersections[index].y);
+        nodes.intersectionPoints[index].setAttribute("cx", intersections[index].x);
+        nodes.intersectionPoints[index].setAttribute("cy", intersections[index].y);
+      });
+
+      setLinePosition(nodes.pascalLine, extendSegment(intersections[0], intersections[2], 76));
+
+      [nodes.polygon, nodes.pascalLine, ...nodes.guidePairs.flat()].forEach((node) => {
+        const length = node.getTotalLength();
+        node.dataset.length = String(length);
+        node.style.strokeDasharray = `${length}`;
+      });
+
+      const revealLevel = getRevealLevel();
+      setStrokeProgress(nodes.polygon, revealLevel >= 4 ? 1 : 0, true);
+      nodes.guidePairs.forEach((pair, index) => {
+        const visible = revealLevel >= 5 + index;
+        pair.forEach((line) => setStrokeProgress(line, visible ? 1 : 0, true));
+      });
+      setStrokeProgress(nodes.pascalLine, revealLevel >= 8 ? 1 : 0, true);
+    }
+
+    function setLinePosition(node, segment) {
+      node.setAttribute("x1", segment.a.x);
+      node.setAttribute("y1", segment.a.y);
+      node.setAttribute("x2", segment.b.x);
+      node.setAttribute("y2", segment.b.y);
     }
 
     function createFilter() {
