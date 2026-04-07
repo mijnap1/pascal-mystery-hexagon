@@ -222,6 +222,13 @@
       max-width: 9ch;
     }
 
+    html[lang="ko"] .title {
+      max-width: 7.2ch;
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+      word-break: keep-all;
+    }
+
     .subtitle {
       margin: 22px 0 0;
       max-width: 31ch;
@@ -671,6 +678,11 @@
 
       .title {
         max-width: none;
+      }
+
+      html[lang="ko"] .title {
+        max-width: 8.5ch;
+        line-height: 1.06;
       }
 
       .hero-actions {

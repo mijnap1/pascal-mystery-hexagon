@@ -3,7 +3,7 @@
     const copy = {
       en: {
         heroEyebrow: "Interactive Geometry Story",
-        heroTitle: "Pascal's Mysterious Hexagon Theorem",
+        heroTitle: "Pascal's Hexagon Theorem",
         heroSubtitle: "A slow, step-by-step visual proof. Follow the points, build the hexagon, and watch the hidden line appear.",
         start: "Start Tutorial",
         switchLabel: "한국어 보기",
@@ -19,7 +19,7 @@
         legendGuide: "Extended opposite sides",
         legendPascal: "Pascal line",
         sources: [
-          { label: "YouTube Shorts: Pascal's Mysterious Hexagon Theorem", url: "https://www.youtube.com/shorts/cVSGkp-MLIw" },
+          { label: "YouTube Shorts: Pascal's Hexagon Theorem", url: "https://www.youtube.com/shorts/cVSGkp-MLIw" },
           { label: "Math Travel Blog: Pascal's Hexagon Theorem Proof", url: "https://mathtravel.tistory.com/entry/%ED%8C%8C%EC%8A%A4%EC%B9%BC%EC%9D%98-%EC%9C%A1%EA%B0%81%ED%98%95-%EC%A0%95%EB%A6%AC-%EC%A6%9D%EB%AA%85%EB%B0%A9%EB%B2%95" },
           { label: "YouTube: Pascal's Theorem (Hexagrammum Mysticum)", url: "https://www.youtube.com/watch?v=ALqPQSrSVks" }
         ],
@@ -68,7 +68,7 @@
       },
       ko: {
         heroEyebrow: "인터랙티브 기하 이야기",
-        heroTitle: "파스칼의 신비로운 육각형 정리",
+        heroTitle: "파스칼의 육각형 정리",
         heroSubtitle: "점을 하나씩 따라가며 육각형을 만들고, 마지막에 숨어 있던 직선이 드러나는 과정을 천천히 살펴보세요.",
         start: "튜토리얼 시작",
         switchLabel: "View in English",
@@ -84,7 +84,7 @@
         legendGuide: "연장한 마주보는 변",
         legendPascal: "파스칼의 직선",
         sources: [
-          { label: "유튜브 쇼츠: 파스칼의 신비로운 육각형 정리", url: "https://www.youtube.com/shorts/cVSGkp-MLIw" },
+          { label: "유튜브 쇼츠: 파스칼의 육각형 정리", url: "https://www.youtube.com/shorts/cVSGkp-MLIw" },
           { label: "Math Travel 블로그: 파스칼의 육각형 정리 증명 방법", url: "https://mathtravel.tistory.com/entry/%ED%8C%8C%EC%8A%A4%EC%B9%BC%EC%9D%98-%EC%9C%A1%EA%B0%81%ED%98%95-%EC%A0%95%EB%A6%AC-%EC%A6%9D%EB%AA%85%EB%B0%A9%EB%B2%95" },
           { label: "유튜브: Pascal's Theorem (Hexagrammum Mysticum)", url: "https://www.youtube.com/watch?v=ALqPQSrSVks" }
         ],
