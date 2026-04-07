@@ -16,3 +16,4 @@ Original prompt: make the arrow buttons a bit smaller and match the visual ui wi
 - Reduced the language-switch animation to a much simpler opacity fade and nudged the step-1 camera to the right so the opening ellipse sits more centrally in the viewport.
 - Compressed the EN/KR language pills into smaller icon-plus-code toggles with a softer glassy surface so they feel like compact utility controls rather than oversized buttons.
 - Reframed the outro as a references section by renaming the eyebrow label, tightening the Korean title wording around `드러납니다`, and making the subtitle explicitly describe the links as future source/reference slots.
+- Split the monolithic `index.html` into a cleaner static structure with `styles/main.css`, `scripts/main.js`, and `assets/images/pascal.png`, then updated the HTML to reference those organized files.
